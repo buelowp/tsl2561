@@ -25,10 +25,18 @@
 #include <unistd.h>
 #include <errno.h>
 #include <stdio.h>
-#include <linux/i2c-dev.h>
 #include <time.h>
-#include <i2c/smbus.h>
 #include <sys/ioctl.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+    #include <linux/i2c-dev.h>
+    #include <i2c/smbus.h>
+#ifdef __cplusplus
+}
+#endif
+
 #include "tsl2561.h"
 
 /*

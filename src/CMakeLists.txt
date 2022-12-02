@@ -20,6 +20,9 @@ else()
     add_library (${PROJECT_NAME} STATIC ${SOURCES})
 endif()
 
+target_link_libraries(${PROJECT_NAME} -li2c)
+#target_compile_definitions(${PROJECT_NAME} PUBLIC __TSL2561_DEBUG__)
+
 install (TARGETS ${PROJECT_NAME} DESTINATION lib)
 install (FILES ${HEADERS} DESTINATION include)
 

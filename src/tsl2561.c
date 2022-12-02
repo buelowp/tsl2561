@@ -16,7 +16,7 @@
 
 #ifndef __TSL2561__
 #define __TSL2561__
-#include "tsl2561.h"
+
 #include <stdint.h>
 #include <string.h>
 #include <stdbool.h>
@@ -27,8 +27,9 @@
 #include <stdio.h>
 #include <linux/i2c-dev.h>
 #include <time.h>
-#endif
+#include <i2c/smbus.h>
 
+#include "tsl2561.h"
 
 /*
  * Define debug function.
@@ -742,3 +743,5 @@ unsigned long tsl2561_compute_lux(void *_tsl, int ch0, int ch1) {
 
 	return lux;		
 }
+
+#endif

@@ -8,7 +8,7 @@
  */
 int main(int argc, char **argv) {
 	int address = 0x39;
-	char *i2c_device = "/dev/i2c-1";
+	char *i2c_device = "/dev/i2c-4";
 
 	void *tsl = tsl2561_init(address, i2c_device);
 	tsl2561_enable_autogain(tsl);

@@ -26,6 +26,10 @@
 #define TSL2561_GAIN_0X 0x00
 #define TSL2561_GAIN_16X 0x10
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 int tsl2561_enable(void *_tsl);
 int tsl2561_disable(void *_tsl);
 
@@ -44,3 +48,6 @@ void tsl2561_luminosity(void *_tsl, int *visible, int *ir);
 void tsl2561_enable_autogain(void *_tsl);
 void tsl2561_disable_autogain(void *_tsl);	
 
+#ifdef __cplusplus
+}
+#endif

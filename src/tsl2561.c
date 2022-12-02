@@ -28,7 +28,7 @@
 #include <linux/i2c-dev.h>
 #include <time.h>
 #include <i2c/smbus.h>
-
+#include <sys/ioctl.h>
 #include "tsl2561.h"
 
 /*
@@ -162,20 +162,6 @@
 #define TSL2561_M8C 0x0000
 
 
-
-/*
- * Basic TSL2561 sensor object.
- *
- */
-typedef struct {
-	int file;
-	int address;
-	uint8_t gain;
-	uint8_t integration_time;
-	bool  autogain;
-	uint8_t type;
-	char *i2c_device;
-} tsl2561_t;
 
 
 
@@ -321,7 +307,7 @@ void tsl2561_init_error_cleanup(void *_tsl) {
  * Use i2cdetect to find the correct i2c bus.
  *
  */
-void* tsl2561_init(int address, const char* i2c_device_filepath) {
+tsl2561_t* tsl2561_init(int address, const char* i2c_device_filepath) {
 	DEBUG("device: init using address %#x and i2cbus %s\n", address, i2c_device_filepath);
 	
 	// setup tsl2561
@@ -335,7 +321,7 @@ void* tsl2561_init(int address, const char* i2c_device_filepath) {
 	tsl->address = address;
 	tsl->gain = TSL2561_GAIN_0X;
 	tsl->integration_time = TSL2561_INTEGRATION_TIME_402MS;
-	tsl->autogain = false;
+	tsl->autogain = 0;
 	tsl->type = 0;
 
 	// setup i2c device path
@@ -465,7 +451,7 @@ void tsl2561_set_integration_time(void *_tsl, int time) {
  */
 void tsl2561_enable_autogain(void *_tsl) {
 	tsl2561_t *tsl = TO_TSL(_tsl);
-	tsl->autogain = true;
+	tsl->autogain = 1;
 }
 
 
@@ -477,7 +463,7 @@ void tsl2561_enable_autogain(void *_tsl) {
  */
 void tsl2561_disable_autogain(void *_tsl) {
 	tsl2561_t *tsl = TO_TSL(_tsl);
-	tsl->autogain = false;
+	tsl->autogain = 0;
 }
 
 

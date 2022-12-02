@@ -30,10 +30,25 @@
 extern "C" {
 #endif
 
+/*
+ * Basic TSL2561 sensor object.
+ *
+ */
+typedef struct {
+	int file;
+	int address;
+	uint8_t gain;
+	uint8_t integration_time;
+	uint8_t  autogain;
+	uint8_t type;
+	char *i2c_device;
+} tsl2561_t;
+
+
 int tsl2561_enable(void *_tsl);
 int tsl2561_disable(void *_tsl);
 
-void* tsl2561_init(int address, const char *i2c_device_filepath);
+tsl2561_t* tsl2561_init(int address, const char *i2c_device_filepath);
 void tsl2561_close(void *_tsl);
 
 void tsl2561_set_timing(void *_tsl, int integration_time, int gain);

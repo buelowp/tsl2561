@@ -1,57 +1,38 @@
 # TSL2561
 
-Raspberry Pi C driver and Python Bindings for the TSL2561 sensor.
+Raspberry Pi C driver for the TSL2561 sensor.
 
 This driver is basically a port of the [Adafruit TSL2561 Light Sensor Driver](https://github.com/adafruit/Adafruit_TSL2561).
+
+This fork drops the Python support as that is readily available using pip3 and the Adafruit install mechanism. Resources to use python can be found elsewhere.
 
 ## Configure I2C
 
 Install the following packages:
 * i2c-tools 
 * libi2c-dev
-* python-dev
 
 ```
-sudo apt-get install i2c-tools libi2c-dev python-dev
+# sudo apt install i2c-tools libi2c-dev
 ```
 
-In a next step we configure i2c on the Raspberry Pi. 
+Depending on usage needs, you can instanatiate a new I2C bus if you need, or use the exposed /dev/i2c-1 which is available using raspi-config.
 
-Add the following lines to `/boot/config.txt`:
+To create a new i2c bus see the following
 
-```
-#i2c
-dtparam=i2c_arm=on,i2c1=on
-```
-
-Edit the file `/etc/modules` and add the following line:
-
-```
-i2c-dev 
-```
-
-Finally reboot:
-
-```
-sudo reboot
-```
-
-After the reboot you should be able to find the i2c device using the command below:
-
-```
-sudo i2cdetect -y 1
-```
+https://www.instructables.com/Raspberry-PI-Multiple-I2c-Devices/
 
 ## Building the driver
 ### C language
 
-Just run `make`.
-
-
-### Python language
-
-Run `sudo python setup.py build`
-
+This library uses cmake. Change directory into the parent and do the following
+```
+# mkdir build
+# cd build
+# cmake ..
+# make
+# sudo make install
+```
 
 ## Usage
 ### C language
@@ -89,21 +70,5 @@ int main(int argc, char **argv) {
 
 ```
 
-### Python language
-
-```python
-from tentacle_pi.TSL2561 import TSL2561
-import time
-
-tsl = TSL2561(0x39,"/dev/i2c-1")
-tsl.enable_autogain()
-tsl.set_time(0x00)
-
-for x in range(0,5):
-	print "lux %s" % tsl.lux()
-	time.sleep(3)
-
-```
-
 ## License
-Adafruit_TSL2561, a C++ library, is licensed under BSD as specified [here](https://github.com/adafruit/Adafruit_TSL2561); the derivative work tsl2561 is provided under the MIT licence. 
+Adafruit_TSL2561, a C++ library, is licensed under BSD as specified [here](https://github.com/adafruit/Adafruit_TSL2561); the derivative work tsl2561 is provided under the MIT licence. This fork maintains the MIT license.

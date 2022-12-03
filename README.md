@@ -71,4 +71,4 @@ int main(int argc, char **argv) {
 ```
 
 ## License
-Adafruit_TSL2561, a C++ library, is licensed under BSD as specified [here](https://github.com/adafruit/Adafruit_TSL2561); the derivative work tsl2561 is provided under the MIT licence. This fork maintains the MIT license.
+TSL2561, a C/C++ library, is licensed under BSD as specified [here](https://github.com/adafruit/Adafruit_TSL2561); the derivative work tsl2561 is provided under the MIT licence. This fork maintains the MIT license.
